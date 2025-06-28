@@ -14,7 +14,7 @@ export default function StickJumpGame() {
     "drama", "errors", "work", "lab report", "internship", "anxiety"
   ];
 
-  const baseObstacleSpeed = 0.2;
+  const baseObstacleSpeed = 0.5;
   const animationRef = useRef();
   const gameStartTimeRef = useRef(null);
 
@@ -28,7 +28,7 @@ export default function StickJumpGame() {
         setIsJumping(false);
         setCollisionEnabled(true);
         setCanJump(true);
-      }, 900); // longer jump
+      }, 700); // 👈 Shorter jump time
     }
   };
 
@@ -75,11 +75,11 @@ export default function StickJumpGame() {
     const playerLeft = 60;
     const playerRight = playerLeft + 40;
     const containerWidth = window.innerWidth * 0.95;
-    const obstacleWidth = 40; // thinner
+    const obstacleWidth = 40;
     const obstacleLeftPx = (obstacleLeft / 100) * containerWidth;
     const obstacleRightPx = obstacleLeftPx + obstacleWidth;
 
-    const playerBottomPx = isJumping ? 180 : 12; // higher jump
+    const playerBottomPx = isJumping ? 180 : 12;
     const obstacleBottomPx = 12;
 
     const isOverlap =
@@ -205,8 +205,8 @@ export default function StickJumpGame() {
               position: "absolute",
               bottom: 12,
               left: `${obstacleLeft}%`,
-              width: 40, // thinner
-              height: 70, // smaller
+              width: 40,
+              height: 70,
               backgroundColor: "#ff4d4f",
               borderRadius: 6,
               display: "flex",
@@ -243,7 +243,7 @@ export default function StickJumpGame() {
         )}
       </div>
 
-      {/* Jump Button for mobile */}
+      {/* Mobile Jump Button */}
       <button
         onClick={handleJump}
         style={{
