@@ -1,0 +1,143 @@
+.game-container {
+  position: relative;
+  width: 100%;
+  height: 300px;
+  background-color: #e6f7ff;
+  overflow: hidden;
+  border-bottom: 4px solid #222;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.ground {
+  position: absolute;
+  bottom: 0;
+  height: 60px;
+  width: 100%;
+  background-color: #444;
+}
+
+/* Stick figure styling */
+.stick-figure {
+  position: absolute;
+  left: 60px;
+  bottom: 60px;
+  width: 30px;
+  height: 80px;
+  z-index: 2;
+  transition: bottom 0.6s ease-out;
+}
+
+/* Head */
+.stick-figure .head {
+  width: 24px;
+  height: 24px;
+  border: 3px solid black;
+  border-radius: 50%;
+  margin: 0 auto;
+}
+
+/* Body */
+.stick-figure .body {
+  width: 3px;
+  height: 40px;
+  background-color: black;
+  margin: 0 auto;
+  position: relative;
+  top: -3px;
+}
+
+/* Arms */
+.stick-figure .arm {
+  position: absolute;
+  width: 20px;
+  height: 3px;
+  background-color: black;
+  top: 20px;
+}
+
+.stick-figure .left-arm {
+  left: -20px;
+  transform: rotate(30deg);
+  transform-origin: right center;
+}
+
+.stick-figure .right-arm {
+  right: -20px;
+  transform: rotate(-30deg);
+  transform-origin: left center;
+}
+
+/* Legs */
+.stick-figure .leg {
+  position: absolute;
+  width: 3px;
+  height: 25px;
+  background-color: black;
+  bottom: 0;
+}
+
+.stick-figure .left-leg {
+  left: 5px;
+  transform: rotate(20deg);
+  transform-origin: top center;
+}
+
+.stick-figure .right-leg {
+  right: 5px;
+  transform: rotate(-20deg);
+  transform-origin: top center;
+}
+
+/* Jump styling via class */
+.stick-figure.jump {
+  bottom: 150px !important;
+}
+
+.obstacle {
+  position: absolute;
+  bottom: 60px;
+  width: 30px;
+  height: 50px;
+  background-color: red;
+  border-radius: 6px;
+  z-index: 1;
+}
+
+.instructions {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 16px;
+  font-weight: 500;
+  color: #333;
+  user-select: none;
+}
+
+.start-button {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 18px;
+  padding: 10px 25px;
+  cursor: pointer;
+  border: none;
+  background-color: #1976d2;
+  color: white;
+  border-radius: 8px;
+  z-index: 5;
+  user-select: none;
+}
+
+.game-over {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 26px;
+  font-weight: bold;
+  color: red;
+  text-align: center;
+  z-index: 5;
+}

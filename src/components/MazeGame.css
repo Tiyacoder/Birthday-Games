@@ -1,0 +1,47 @@
+body {
+  font-family: "Poppins", sans-serif;
+  margin: 0;
+  background-color: #fff;
+}
+
+#page {
+  text-align: center;
+  padding: 20px;
+  overflow: auto;
+}
+
+#mazeCanvas {
+  border: 2px solid black;
+  margin-top: 20px;
+}
+
+#Message-Container {
+  visibility: hidden;
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.3);
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#message {
+  background: white;
+  padding: 30px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+#menu {
+  margin-top: 20px;
+}
+
+input, select {
+  padding: 10px;
+  margin: 5px;
+  font-size: 16px;
+  cursor: pointer;
+}

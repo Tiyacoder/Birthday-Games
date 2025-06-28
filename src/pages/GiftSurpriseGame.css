@@ -1,0 +1,36 @@
+.gift-wrapper {
+  text-align: center;
+  padding: 2rem;
+}
+
+.gift-box {
+  font-size: 100px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  margin-bottom: 2rem;
+}
+
+.gift-box.open {
+  transform: scale(1.2) rotate(10deg);
+}
+
+.image-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 1rem;
+  justify-items: center;
+  margin-top: 2rem;
+}
+
+.image-grid img {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  transition: transform 0.2s;
+}
+
+.image-grid img:hover {
+  transform: scale(1.05);
+}
