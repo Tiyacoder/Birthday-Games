@@ -10,24 +10,15 @@ export default function StickJumpGame() {
   const [currentWord, setCurrentWord] = useState("chores");
 
   const obstacleWords = [
-    "chores",
-    "exams",
-    "stress",
-    "viva",
-    "bugs",
-    "drama",
-    "errors",
-    "work",
-    "lab report",
-    "internship",
-    "anxiety",
+    "chores", "exams", "stress", "viva", "bugs",
+    "drama", "errors", "work", "lab report", "internship", "anxiety"
   ];
 
   const baseObstacleSpeed = 0.2;
   const animationRef = useRef();
   const gameStartTimeRef = useRef(null);
 
-  const jump = () => {
+  const handleJump = () => {
     if (canJump && isGameRunning && !gameOver) {
       setIsJumping(true);
       setCanJump(false);
@@ -37,17 +28,17 @@ export default function StickJumpGame() {
         setIsJumping(false);
         setCollisionEnabled(true);
         setCanJump(true);
-      }, 800); // 🕒 Stay longer in the air
+      }, 900); // longer jump
     }
   };
 
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.code === "Space") {
-        jump();
+        e.preventDefault();
+        handleJump();
       }
     };
-
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [canJump, isGameRunning, gameOver]);
@@ -63,8 +54,7 @@ export default function StickJumpGame() {
 
       setObstacleLeft((prev) => {
         if (prev <= -10) {
-          const nextWord =
-            obstacleWords[Math.floor(Math.random() * obstacleWords.length)];
+          const nextWord = obstacleWords[Math.floor(Math.random() * obstacleWords.length)];
           setCurrentWord(nextWord);
           return 100;
         }
@@ -85,11 +75,11 @@ export default function StickJumpGame() {
     const playerLeft = 60;
     const playerRight = playerLeft + 40;
     const containerWidth = window.innerWidth * 0.95;
-    const obstacleWidth = 70;
+    const obstacleWidth = 40; // thinner
     const obstacleLeftPx = (obstacleLeft / 100) * containerWidth;
     const obstacleRightPx = obstacleLeftPx + obstacleWidth;
 
-    const playerBottomPx = isJumping ? 260 : 12;
+    const playerBottomPx = isJumping ? 180 : 12; // higher jump
     const obstacleBottomPx = 12;
 
     const isOverlap =
@@ -102,7 +92,7 @@ export default function StickJumpGame() {
     }
   }, [obstacleLeft, isJumping, isGameRunning, gameOver, collisionEnabled]);
 
-  const playerBottom = isJumping ? 260 : 12;
+  const playerBottom = isJumping ? 180 : 12;
 
   const startGame = () => {
     setGameOver(false);
@@ -111,8 +101,7 @@ export default function StickJumpGame() {
     setIsJumping(false);
     setCollisionEnabled(true);
     setCanJump(true);
-    const firstWord =
-      obstacleWords[Math.floor(Math.random() * obstacleWords.length)];
+    const firstWord = obstacleWords[Math.floor(Math.random() * obstacleWords.length)];
     setCurrentWord(firstWord);
   };
 
@@ -137,7 +126,7 @@ export default function StickJumpGame() {
           DODGE THE RESPONSIBILITIES
         </h1>
         <p style={{ margin: 0, fontSize: 16, color: "#333" }}>
-          Click Spacebar or Tap Jump
+          Press spacebar or tap jump to avoid!
         </p>
       </div>
 
@@ -191,7 +180,7 @@ export default function StickJumpGame() {
             left: 60,
             width: 40,
             height: 100,
-            transition: "bottom 0.4s ease", // Smooth & longer jump
+            transition: "bottom 0.3s ease",
           }}
         >
           <svg
@@ -216,8 +205,8 @@ export default function StickJumpGame() {
               position: "absolute",
               bottom: 12,
               left: `${obstacleLeft}%`,
-              width: 60,
-              height: 100,
+              width: 40, // thinner
+              height: 70, // smaller
               backgroundColor: "#ff4d4f",
               borderRadius: 6,
               display: "flex",
@@ -225,9 +214,9 @@ export default function StickJumpGame() {
               alignItems: "center",
               color: "white",
               fontWeight: "bold",
-              fontSize: 14,
+              fontSize: 12,
               textAlign: "center",
-              padding: "0 4px",
+              padding: "0 2px",
             }}
           >
             {currentWord}
@@ -255,24 +244,22 @@ export default function StickJumpGame() {
       </div>
 
       {/* Jump Button for mobile */}
-      {isGameRunning && !gameOver && (
-        <button
-          onClick={jump}
-          style={{
-            marginTop: 30,
-            padding: "14px 36px",
-            fontSize: 20,
-            borderRadius: 10,
-            backgroundColor: "#FF9800",
-            color: "#fff",
-            border: "none",
-            fontWeight: "bold",
-            boxShadow: "0 4px 10px rgba(0,0,0,0.2)",
-          }}
-        >
-          JUMP
-        </button>
-      )}
+      <button
+        onClick={handleJump}
+        style={{
+          marginTop: 30,
+          padding: "12px 28px",
+          fontSize: 18,
+          cursor: "pointer",
+          borderRadius: 6,
+          border: "none",
+          backgroundColor: "#388E3C",
+          color: "#fff",
+          fontWeight: "bold",
+        }}
+      >
+        JUMP ⬆️
+      </button>
     </div>
   );
 }
