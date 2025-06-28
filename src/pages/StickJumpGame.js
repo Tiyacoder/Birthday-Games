@@ -37,7 +37,7 @@ export default function StickJumpGame() {
         setIsJumping(false);
         setCollisionEnabled(true);
         setCanJump(true);
-      }, 500);
+      }, 800); // 🕒 Stay longer in the air
     }
   };
 
@@ -89,7 +89,7 @@ export default function StickJumpGame() {
     const obstacleLeftPx = (obstacleLeft / 100) * containerWidth;
     const obstacleRightPx = obstacleLeftPx + obstacleWidth;
 
-    const playerBottomPx = isJumping ? 260 : 12; // ⬆️ Higher jump
+    const playerBottomPx = isJumping ? 260 : 12;
     const obstacleBottomPx = 12;
 
     const isOverlap =
@@ -191,7 +191,7 @@ export default function StickJumpGame() {
             left: 60,
             width: 40,
             height: 100,
-            transition: "bottom 0.35s ease", // Smooth high jump
+            transition: "bottom 0.4s ease", // Smooth & longer jump
           }}
         >
           <svg
@@ -234,7 +234,7 @@ export default function StickJumpGame() {
           </div>
         )}
 
-        {/* Game Over Message */}
+        {/* Game Over */}
         {gameOver && (
           <div
             style={{
@@ -254,7 +254,7 @@ export default function StickJumpGame() {
         )}
       </div>
 
-      {/* 📱 Jump Button for Mobile */}
+      {/* Jump Button for mobile */}
       {isGameRunning && !gameOver && (
         <button
           onClick={jump}
