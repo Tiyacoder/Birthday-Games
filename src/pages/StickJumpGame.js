@@ -10,15 +10,24 @@ export default function StickJumpGame() {
   const [currentWord, setCurrentWord] = useState("chores");
 
   const obstacleWords = [
-    "chores", "exams", "stress", "viva", "bugs", "drama",
-    "errors", "work", "lab report", "internship", "anxiety"
+    "chores",
+    "exams",
+    "stress",
+    "viva",
+    "bugs",
+    "drama",
+    "errors",
+    "work",
+    "lab report",
+    "internship",
+    "anxiety",
   ];
 
   const baseObstacleSpeed = 0.2;
   const animationRef = useRef();
   const gameStartTimeRef = useRef(null);
 
-  const triggerJump = () => {
+  const jump = () => {
     if (canJump && isGameRunning && !gameOver) {
       setIsJumping(true);
       setCanJump(false);
@@ -28,14 +37,17 @@ export default function StickJumpGame() {
         setIsJumping(false);
         setCollisionEnabled(true);
         setCanJump(true);
-      }, 350); // Snappier jump timing
+      }, 500);
     }
   };
 
   useEffect(() => {
     const handleKeyDown = (e) => {
-      if (e.code === "Space") triggerJump();
+      if (e.code === "Space") {
+        jump();
+      }
     };
+
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [canJump, isGameRunning, gameOver]);
@@ -51,7 +63,8 @@ export default function StickJumpGame() {
 
       setObstacleLeft((prev) => {
         if (prev <= -10) {
-          const nextWord = obstacleWords[Math.floor(Math.random() * obstacleWords.length)];
+          const nextWord =
+            obstacleWords[Math.floor(Math.random() * obstacleWords.length)];
           setCurrentWord(nextWord);
           return 100;
         }
@@ -62,6 +75,7 @@ export default function StickJumpGame() {
     };
 
     animationRef.current = requestAnimationFrame(moveObstacle);
+
     return () => cancelAnimationFrame(animationRef.current);
   }, [isGameRunning, gameOver]);
 
@@ -75,7 +89,7 @@ export default function StickJumpGame() {
     const obstacleLeftPx = (obstacleLeft / 100) * containerWidth;
     const obstacleRightPx = obstacleLeftPx + obstacleWidth;
 
-    const playerBottomPx = isJumping ? 160 : 12;
+    const playerBottomPx = isJumping ? 260 : 12; // ⬆️ Higher jump
     const obstacleBottomPx = 12;
 
     const isOverlap =
@@ -88,7 +102,7 @@ export default function StickJumpGame() {
     }
   }, [obstacleLeft, isJumping, isGameRunning, gameOver, collisionEnabled]);
 
-  const playerBottom = isJumping ? 160 : 12;
+  const playerBottom = isJumping ? 260 : 12;
 
   const startGame = () => {
     setGameOver(false);
@@ -97,7 +111,8 @@ export default function StickJumpGame() {
     setIsJumping(false);
     setCollisionEnabled(true);
     setCanJump(true);
-    const firstWord = obstacleWords[Math.floor(Math.random() * obstacleWords.length)];
+    const firstWord =
+      obstacleWords[Math.floor(Math.random() * obstacleWords.length)];
     setCurrentWord(firstWord);
   };
 
@@ -122,7 +137,7 @@ export default function StickJumpGame() {
           DODGE THE RESPONSIBILITIES
         </h1>
         <p style={{ margin: 0, fontSize: 16, color: "#333" }}>
-          Click Spacebar or Tap Jump to Jump
+          Click Spacebar or Tap Jump
         </p>
       </div>
 
@@ -176,7 +191,7 @@ export default function StickJumpGame() {
             left: 60,
             width: 40,
             height: 100,
-            transition: "bottom 0.2s ease-out", // Faster jump animation
+            transition: "bottom 0.35s ease", // Smooth high jump
           }}
         >
           <svg
@@ -219,7 +234,7 @@ export default function StickJumpGame() {
           </div>
         )}
 
-        {/* Game Over */}
+        {/* Game Over Message */}
         {gameOver && (
           <div
             style={{
@@ -242,18 +257,17 @@ export default function StickJumpGame() {
       {/* 📱 Jump Button for Mobile */}
       {isGameRunning && !gameOver && (
         <button
-          onClick={triggerJump}
+          onClick={jump}
           style={{
             marginTop: 30,
-            padding: "12px 30px",
-            fontSize: 18,
-            borderRadius: 8,
-            backgroundColor: "#4CAF50",
+            padding: "14px 36px",
+            fontSize: 20,
+            borderRadius: 10,
+            backgroundColor: "#FF9800",
             color: "#fff",
             border: "none",
             fontWeight: "bold",
-            cursor: "pointer",
-            userSelect: "none",
+            boxShadow: "0 4px 10px rgba(0,0,0,0.2)",
           }}
         >
           JUMP
